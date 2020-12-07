@@ -13,11 +13,9 @@ import {
   Label,
   Text,
   Button,
-  Select,
 } from "@airtable/blocks/ui";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import printWithoutElementsWithClass from "./print_without_elements_with_class";
+
 
 const supportedFields = [FieldType.MULTILINE_TEXT, FieldType.SINGLE_LINE_TEXT];
 const isFieldSupported = (field) => supportedFields.includes(field.type);
@@ -117,11 +115,19 @@ function Record({
       padding="12"
       fontSize="1.2em"
     >
+      <Box>
+        <img src="https://dl.airtable.com/.attachmentThumbnails/d4347788067ecd0d6ab480e7b2c2a815/35b6043d.png" alt="Logo" />
+      </Box>
       {/*  Brand*/}
       <div>
-        <Label textAlign="center" width="100%" htmlFor="brand">
+        <a
+          textAlign="center"
+          width="100%"
+          htmlFor="brand"
+          href={selectedRecord.getCellValueAsString("url (from Field 14)")}
+        >
           {selectedRecord.getCellValueAsString("Brand")}
-        </Label>
+        </a>
       </div>
       {/* Pattern name input */}
       <Text
@@ -132,17 +138,9 @@ function Record({
         style={{ fontSize: "1.5em", padding: "1% 5%", color: "#e25f1c" }}
       ></Text>
       {/* Type */}
-      <Text
-        text={
-          selectedRecord.getCellValueAsString("Type")
-            ? selectedRecord.getCellValueAsString("Type")
-            : "Add Type here"
-        }
-        placeholder="Add Type"
-        childRef={inputRef}
-        type="input"
-        style={{ fontSize: "1.2em", padding: "1% 5%", color: "#1c9de2" }}
-      ></Text>
+      <Text style={{ fontSize: "1.2em", padding: "1% 5%", color: "#1c9de2" }}>
+        {selectedRecord.getCellValueAsString("Type")}
+      </Text>
 
       <Box display="flex" flexDirection="row">
         {/* Designer name */}
