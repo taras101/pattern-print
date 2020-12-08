@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState} from "react";
 import { cursor } from "@airtable/blocks";
-import { FieldType } from "@airtable/blocks/models";
 import {
   useLoadable,
   useWatchable,
@@ -17,12 +16,9 @@ import {
 import printWithoutElementsWithClass from "./print_without_elements_with_class";
 
 
-const supportedFields = [FieldType.MULTILINE_TEXT, FieldType.SINGLE_LINE_TEXT];
-const isFieldSupported = (field) => supportedFields.includes(field.type);
-
 function UpdateBlock() {
   // YOUR CODE GOES HERE
-  const [selectedRecordId, setSelectedRecordId] = useState(null);
+  const [selectedRecordId, setSelectedRecordId] = useState("recayQIhqDSufYpWz");
   const [selectedFieldId, setSelectedFieldId] = useState(null);
 
   useLoadable(cursor);
@@ -80,7 +76,6 @@ function UpdateBlock() {
 
 function Record({
   table,
-  brandRecords,
   record,
   selectedFieldId,
   selectedRecordId,
@@ -92,8 +87,6 @@ function Record({
     border: "solid 1px #fddfcf",
     color: "#1c9de2",
   };
-  const records = useRecords(table);
-  const inputRef = useRef();
   // We use getFieldByIdIfExists because the field might be deleted.
   const selectedField = selectedFieldId
     ? table.getFieldByIdIfExists(selectedFieldId)
@@ -115,28 +108,30 @@ function Record({
       padding="12"
       fontSize="1.2em"
     >
-      <Box>
-        <img src="https://dl.airtable.com/.attachmentThumbnails/d4347788067ecd0d6ab480e7b2c2a815/35b6043d.png" alt="Logo" />
+      <Box
+        justifyContent="center"
+        padding={2}>
+        <img src="https://dl.airtable.com/.attachmentThumbnails/d4347788067ecd0d6ab480e7b2c2a815/35b6043d.png" width="100%" alt="Logo" />
       </Box>
-      {/*  Brand*/}
-      <div>
-        <a
-          textAlign="center"
-          width="100%"
-          htmlFor="brand"
-          href={selectedRecord.getCellValueAsString("url (from Field 14)")}
-        >
-          {selectedRecord.getCellValueAsString("Brand")}
-        </a>
-      </div>
+      <Box  backgroundColor="#bababa" height="50px" width="100%" display="flex" flexDirection="row">
+        {/*  Brand*/}
+        <div 
+            style={{ fontSize: "1em", padding: "1% 2%", width:"30%"}}>  
+          <a
+            textAlign="center"
+            style={{ fontSize: "1.5em",fontStyle:"bold" ,padding: "1% 2%", color: "#fff", width:"30%", textDecoration:"none"}}
+            width="100%"
+            htmlFor="brand"
+            href={selectedRecord.getCellValueAsString("url (from Field 14)")}
+          >
+            {selectedRecord.getCellValueAsString("Brand").toUpperCase()}
+          </a>
+        </div>
+
       {/* Pattern name input */}
       <Text
-        text={record.name}
-        placeholder="Add Pattern Name"
-        childRef={inputRef}
-        type="input"
-        style={{ fontSize: "1.5em", padding: "1% 5%", color: "#e25f1c" }}
-      ></Text>
+        style={{ fontSize: "1.5em", padding: "1% 2%", color: "#fff" }}
+        >{record.name}</Text>
       {/* Type */}
       <Text style={{ fontSize: "1.2em", padding: "1% 5%", color: "#1c9de2" }}>
         {selectedRecord.getCellValueAsString("Type")}
@@ -150,6 +145,8 @@ function Record({
           </Label>
         </div>
 
+      </Box>
+      
         {/*  Skill Level */}
         <div>
           <Label textAlign="center" width="100%" htmlFor="skill">
