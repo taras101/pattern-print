@@ -212,7 +212,12 @@ function Record({ table, record, selectedFieldId, selectedRecordId }) {
                     ></div>
                 </Box>
                 {/* right column */}
-                <Box display="flex" flexDirection="column" marginLeft={4}>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    marginLeft={4}
+                    width="50%"
+                >
                     <Box display="flex" flexDirection="row">
                         {/* Type */}
                         <Text
@@ -250,23 +255,26 @@ function Record({ table, record, selectedFieldId, selectedRecordId }) {
                     <div
                         size="xlarge"
                         justifyContent="left"
-                        textColor="grey"
                         marginTop="5%"
                         dangerouslySetInnerHTML={createMarkup(
                             selectedRecord.getCellValueAsString('Sizes')
                         )}
                     ></div>
                     {/* Gauge textarea */}
-                    <Text size="xlarge" justifyContent="left" textColor="grey">
-                        {selectedRecord.getCellValueAsString('Gauge')}
+
+                    <Text size="xlarge" justifyContent="center">
+                        Gauge
                     </Text>
+                    <div
+                        size="xlarge"
+                        justifyContent="left"
+                        dangerouslySetInnerHTML={createMarkup(
+                            selectedRecord.getCellValueAsString('Gauge')
+                        )}
+                    ></div>
 
                     {/* Abbreviations select */}
-                    <Text
-                        size="xlarge"
-                        justifyContent="center"
-                        textColor="grey"
-                    >
+                    <Text size="xlarge" justifyContent="center">
                         Abbreviations
                     </Text>
                     <CellRenderer
@@ -275,30 +283,34 @@ function Record({ table, record, selectedFieldId, selectedRecordId }) {
                     />
 
                     {/* Instructions textarea */}
-                    <Text size="xlarge" justifyContent="left" textColor="grey">
-                        {selectedRecord.getCellValueAsString('Instructions')}
-                    </Text>
-
-                    <Box
-                        className="print-hide"
-                        padding={2}
-                        borderBottom="thick"
-                        display="flex"
-                    >
-                        {/* <ViewPickerSynced table={table} globalConfigKey={GlobalConfigKeys.VIEW_ID} /> */}
-                        <Button
-                            onClick={() => {
-                                // Inject CSS to hide elements with the "print-hide" class name
-                                // when the app gets printed. This lets us hide the toolbar from
-                                // the print output.
-                                printWithoutElementsWithClass('print-hide')
-                            }}
-                            marginLeft={2}
-                        >
-                            Print
-                        </Button>
-                    </Box>
+                    <div
+                        size="xlarge"
+                        justifyContent="left"
+                        textColor="grey"
+                        dangerouslySetInnerHTML={createMarkup(
+                            selectedRecord.getCellValueAsString('Instructions')
+                        )}
+                    ></div>
                 </Box>
+            </Box>
+            <Box
+                className="print-hide"
+                padding={2}
+                borderBottom="thick"
+                display="flex"
+            >
+                {/* <ViewPickerSynced table={table} globalConfigKey={GlobalConfigKeys.VIEW_ID} /> */}
+                <Button
+                    onClick={() => {
+                        // Inject CSS to hide elements with the "print-hide" class name
+                        // when the app gets printed. This lets us hide the toolbar from
+                        // the print output.
+                        printWithoutElementsWithClass('print-hide')
+                    }}
+                    marginLeft={2}
+                >
+                    Print
+                </Button>
             </Box>
         </Box>
     )
